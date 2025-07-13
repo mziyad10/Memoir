@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MainCategories from "../components/mainCategories";
 
 const HomePage = () => {
   return (
@@ -25,11 +26,12 @@ const HomePage = () => {
         </div>
 
         {/* animated button */}
-        <Link to="write" className="relative">
+        <Link to="write" className="hidden md:block relative">
           <svg viewBox="0 0 200 200" 
           width="200" 
           height="200"
-          className="text-lg tracking-widest animate-puls">
+          // className="text-lg tracking-widest animate-spin animatedButton">
+          className="text-lg tracking-widest">
             <path id="circlePath" fill="none" d="M 100, 100 m -75, 0 a 75, 75 0 1, 1 150, 0 a 75, 75 0 1, 1 -150, 0"/>
             <text>
               <textPath href="#circlePath" startOffset="0%">Write your story •</textPath>
@@ -52,6 +54,10 @@ const HomePage = () => {
           </button>
         </Link>
       </div>
+
+      {/* CATEGORIES */}
+      <MainCategories />
+
       {/* FEATURED POSTS */}
       {/* POST LIST */}
     </div>
