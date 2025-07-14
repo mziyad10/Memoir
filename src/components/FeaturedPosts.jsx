@@ -10,7 +10,7 @@ const FeaturedPosts = () => {
         {/* image */}
         <ImageKitWrapper
           src="featured1.jpeg"
-          className="rounded-3xl object-cover"
+          className="rounded-3xl object-cover"w='895'
         />
 
         {/* details */}
@@ -35,10 +35,12 @@ const FeaturedPosts = () => {
         
         {/* second post */}
         <div className="lg:h-1/3 flex justify-between gap-4">
+        <div className="w-1/3 aspect-video">
           <ImageKitWrapper
             src="featured2.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          />
+            className="rounded-3xl object-cover w-full h-full"
+            w='298'
+          /></div>
           {/* details and title */}
           <div className="w-2/3">
             {/* details */}
@@ -60,10 +62,12 @@ const FeaturedPosts = () => {
 
         {/* third post */}
          <div className="lg:h-1/3 flex justify-between gap-4">
+           <div className="w-1/3 aspect-video">
           <ImageKitWrapper
             src="featured3.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          />
+            className="rounded-3xl object-cover w-full h-full"
+            w='298'
+          /></div>
           {/* details and title */}
           <div className="w-2/3">
             {/* details */}
@@ -85,10 +89,12 @@ const FeaturedPosts = () => {
 
         {/* fourth post */}
         <div className="lg:h-1/3 flex justify-between gap-4">
+           <div className="w-1/3 aspect-video">
           <ImageKitWrapper
             src="featured4.jpeg"
-            className="rounded-3xl object-cover w-1/3 aspect-video"
-          />
+            className="rounded-3xl object-cover w-full h-full"
+            w='298'
+          /></div>
           {/* details and title */}
           <div className="w-2/3">
             {/* details */}
