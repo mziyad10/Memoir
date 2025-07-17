@@ -26,23 +26,23 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "posts",
+        path: "/posts",
         element: <PostListPage />,
       },
       {
-        path: "/:slug",
+         path: "/test",
         element: <SinglePostPage />,
       },
       {
-        path: "writes",
+        path: "/writes",
         element: <Writes />,
       },
       {
-        path: "login",
+        path: "/login",
         element: <LoginPage />,
       },
       {
-        path: "register",
+        path: "/register",
         element: <RegisterPage />,
       },
     ],
