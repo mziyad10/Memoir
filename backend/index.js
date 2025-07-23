@@ -6,24 +6,18 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import webhookRouter from "./routes/webhook.route.js";
 import { clerkMiddleware } from "@clerk/express";
-import bodyParser from "body-parser";
 
 dotenv.config();
 
 const app = express();
 
-// Store raw body for webhook signature verification
-app.use(
-  "/webhooks",
-  bodyParser.json({
-    verify: (req, res, buf) => {
-      req.rawBody = buf.toString();
-    },
-  })
-);
-
-// Attach webhook route
+// Important: Webhook route must be first, before any other middleware
 app.use("/webhooks", webhookRouter);
+
+app.use((req, res, next) => {
+  console.log(`🛰️ Received request: ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // Use Clerk middleware after webhooks to avoid interfering with raw body
 app.use(clerkMiddleware());
