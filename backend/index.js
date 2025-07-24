@@ -6,10 +6,13 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import webhookRouter from "./routes/webhook.route.js";
 import { clerkMiddleware, requireAuth } from "@clerk/express";
+import cors from "cors";
+
 
 dotenv.config();
 
 const app = express();
+app.use(cors(process.env.CLIENT_URL));
 
 // Use Clerk middleware after webhooks to avoid interfering with raw body
 app.use(clerkMiddleware());
