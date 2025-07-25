@@ -12,14 +12,11 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
- const { userId: clerkId } = req.auth(); // ✅ extracts userId from Clerk
+  const { userId: clerkId } = req.auth(); // ✅ extracts userId from Clerk
 
- console.log(clerkId,"id");
- 
-
+  console.log(clerkId, "id");
 
   console.log(req.headers);
-  
 
   if (!clerkId) {
     return res.status(401).json("Not authenticated");
@@ -30,14 +27,26 @@ export const createPost = async (req, res) => {
     return res.status(404).json("User not found");
   }
 
-  const newPost = new Post({ user: user._id, ...req.body });
+  let slug = req.body.title.replace(/ /g, "-").toLowerCase();
+
+  let existingPost = await Post.findOne({ slug });
+
+  let counter = 2;
+
+  while (existingPost) {
+    slug = `${slug}-${counter}`;
+    existingPost = await Post.findOne({ slug });
+    counter++;
+  }
+
+  const newPost = new Post({ user: user._id, slug, ...req.body });
 
   const post = await newPost.save();
   res.status(200).json(post);
 };
 
 export const deletePost = async (req, res) => {
-  const { userId: clerkId } = req.auth()
+  const { userId: clerkId } = req.auth();
   if (!clerkId) {
     return res.status(401).json("Not authenticated");
   }
@@ -47,7 +56,7 @@ export const deletePost = async (req, res) => {
     _id: req.params.id,
     user: user._id,
   });
-  if(!deletedPost){
+  if (!deletedPost) {
     return res.status(403).json("You are not allowed to delete this post");
   }
 
