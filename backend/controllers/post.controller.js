@@ -3,8 +3,18 @@ import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 
 export const getPosts = async (req, res) => {
-  const posts = await Post.find();
-  res.status(200).json(posts);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 2;
+
+  const posts = await Post.find()
+    .populate("user", "username")
+    .limit(limit)
+    .skip((page - 1) * limit);
+
+  const totalPosts = await Post.countDocuments();
+  const hasMore = page * limit < totalPosts;
+
+  res.status(200).json(posts, hasMore);
 };
 
 export const getPost = async (req, res) => {
@@ -13,7 +23,7 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { userId: clerkId } = req.auth(); // ✅ extracts userId from Clerk
+  const { userId: clerkId } = req.auth();
 
   console.log(clerkId, "id");
 
@@ -64,12 +74,11 @@ export const deletePost = async (req, res) => {
   res.status(200).json("post has been deleted");
 };
 
-
-const imagekit = new ImageKit ({
+const imagekit = new ImageKit({
   urlEndpoint: "https://ik.imagekit.io/MZIYAD",
   publicKey: "public_DiSw4Hf+RqqPCkeG5pXCIe0+nfE=",
-  privateKey: "private_6w8EoDfZ6ubJSby7det/QRYCgCg="
-})
+  privateKey: "private_6w8EoDfZ6ubJSby7det/QRYCgCg=",
+});
 
 export const uploadAuth = async (req, res) => {
   const result = imagekit.getAuthenticationParameters();

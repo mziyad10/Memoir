@@ -35,7 +35,7 @@ const Upload = ({ children, type, setProgress, setData }) => {
   };
 
   const onSuccess = (res) => {
-    console.log(res);
+    console.log(res,"findpath");
     setData(res);
   };
 

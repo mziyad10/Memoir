@@ -24,7 +24,7 @@ const Writes = () => {
   useEffect(() => {
     video &&
       setValue(
-        (prev) => prev + `<p><iframe class="ql-video" src="${img.url}"/></p>`
+        (prev) => prev + `<p><iframe class="ql-video" src="${video.url}"/></p>`
       );
   }, [video]);
 
@@ -75,9 +75,9 @@ const Writes = () => {
       <h1 className="text-xl font-light">Create a new post</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1 mb-6">
         <Upload type="image" setProgress={setProgress} setData={setCover}>
-          <button className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
+          <div className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
             Add a cover image
-          </button>
+          </div>
         </Upload>
         <input
           className="text-3xl font-semibold bg-transparent outline-none"
