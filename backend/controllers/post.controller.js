@@ -1,3 +1,4 @@
+import ImageKit from "imagekit";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
 
@@ -61,4 +62,16 @@ export const deletePost = async (req, res) => {
   }
 
   res.status(200).json("post has been deleted");
+};
+
+
+const imagekit = new ImageKit ({
+  urlEndpoint: "https://ik.imagekit.io/MZIYAD",
+  publicKey: "public_DiSw4Hf+RqqPCkeG5pXCIe0+nfE=",
+  privateKey: "private_6w8EoDfZ6ubJSby7det/QRYCgCg="
+})
+
+export const uploadAuth = async (req, res) => {
+  const result = imagekit.getAuthenticationParameters();
+  res.send(result);
 };
