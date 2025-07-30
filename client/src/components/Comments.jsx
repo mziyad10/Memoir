@@ -9,6 +9,8 @@ const fetchComments = async (postId) => {
   const res = await axios.get(
     `${import.meta.env.VITE_API_URL}/comments/${postId}`
   );
+  console.log(res.data);
+
   return res.data;
 };
 
@@ -46,7 +48,7 @@ const Comments = ({ postId }) => {
   if (isPending) return "loading...";
   if (error) return "Something went wrong!" + error.message;
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
@@ -72,9 +74,9 @@ const Comments = ({ postId }) => {
           SEND
         </button>
       </form>
-      {data.map((comment) => {
-        <Comment key={comment._id} comment={comment} />;
-      })}
+      {data.map((comment) => (
+        <Comment key={comment._id} comment={comment} />
+      ))}
     </div>
   );
 };
