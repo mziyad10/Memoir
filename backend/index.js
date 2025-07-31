@@ -53,6 +53,7 @@ app.use(function (req, res, next) {
 // });
 
 // API routes
+
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/comments", commentRouter);

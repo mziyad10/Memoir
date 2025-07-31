@@ -26,17 +26,17 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { userId: clerkId } = req.auth();
+  const { userId: clerkUserId } = req.auth();
 
-  console.log(clerkId, "id");
+  console.log(clerkUserId, "id");
 
   console.log(req.headers);
 
-  if (!clerkId) {
+  if (!clerkUserId) {
     return res.status(401).json("Not authenticated");
   }
 
-  const user = await User.findOne({ clerkId });
+  const user = await User.findOne({ clerkUserId });
   if (!user) {
     return res.status(404).json("User not found");
   }
@@ -60,11 +60,11 @@ export const createPost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-  const { userId: clerkId } = req.auth();
-  if (!clerkId) {
+  const { userId: clerkUserId } = req.auth();
+  if (!clerkUserId) {
     return res.status(401).json("Not authenticated");
   }
-  const user = await User.findOne({ clerkId });
+  const user = await User.findOne({ clerkUserId });
 
   const deletedPost = await Post.findByIdAndDelete({
     _id: req.params.id,

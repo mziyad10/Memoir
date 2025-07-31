@@ -34,7 +34,7 @@ export const clerkWebHook = async (req, res) => {
       try {
         // Create new user in MongoDB
         const newUser = new User({
-          clerkId: userData.id,
+          clerkUserId: userData.id,
           email: userData.email_addresses[0]?.email_address,
           username: userData.username || userData.first_name || `user_${userData.id.slice(0, 6)}`,
           firstName: userData.first_name,
