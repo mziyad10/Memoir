@@ -1,21 +1,40 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Search = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(
+    searchParams.get("search") || ""
+  );
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    setSearchTerm(searchParams.get("search") || "");
+  }, [searchParams]);
 
-  const handleKeyPress = (e) => {  
-      
+  const handleSearch = async (e) => {
     if (e.key === "Enter") {
-      const query = e.target.value;
-      if (location.pathname === "/posts") {
-        setSearchParams({ ...Object.fromEntries(searchParams), search: query });
+      e.preventDefault();
+      const newParams = new URLSearchParams(searchParams);
+
+      if (searchTerm.trim()) {
+        newParams.set("search", searchTerm.trim());
       } else {
-        navigate(`/posts?search=${query}`);
+        newParams.delete("search");
       }
+
+      if (location.pathname === "/posts") {
+        navigate(`?${newParams.toString()}`, { replace: true });
+      } else {
+        navigate(`/posts?${newParams.toString()}`);
+      }
+
+      // Refresh posts
+      await queryClient.invalidateQueries("posts");
+      queryClient.refetchQueries("posts");
     }
   };
 
@@ -36,7 +55,9 @@ const Search = () => {
         type="text"
         placeholder="search a post..."
         className="bg-transparent"
-        onKeyDown={handleKeyPress}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleSearch}
       />
     </div>
   );

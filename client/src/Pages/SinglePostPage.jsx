@@ -7,6 +7,7 @@ import Comments from "../components/Comments";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "timeago.js";
+import Rating from "../components/Rating";
 
 const fetchPost = async (slug) => {
   const res = await axios.get(`${import.meta.env.VITE_API_URL}/posts/${slug}`);
@@ -47,6 +48,9 @@ const SinglePostPage = () => {
             <Image src={data.img} w="600" className="rounded-2xl" />
           </div>
         )}
+      </div>
+      <div className="flex justify-start sm:justify-center lg:justify-start mt-2 lg:-mt-30">
+        <Rating initialRating={0} />
       </div>
 
       {/* content */}
