@@ -69,7 +69,7 @@ export const getPosts = async (req, res) => {
   const totalPosts = await Post.countDocuments();
   const hasMore = page * limit < totalPosts;
 
-  res.status(200).json(posts, hasMore);
+  res.status(200).json({posts, hasMore});
 };
 
 export const getPost = async (req, res) => {

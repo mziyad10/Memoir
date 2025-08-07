@@ -40,9 +40,8 @@ const PostList = () => {
 
   if (error) return "Something went wrong!";
 
-  const allPosts = data?.pages?.flatMap((page) => page) || [];
+  const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
 
-  console.log(allPosts);
 
   return (
     <InfiniteScroll

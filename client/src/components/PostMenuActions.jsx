@@ -144,7 +144,7 @@ const PostMenuActions = ({ post }) => {
           </svg>
           <span>Save this Post</span>
           {saveMutation.isPending && (
-            <span className="text-xs">(in progress)</span>
+            <span className="text-xs">in progress</span>
           )}
         </div>
       )}
@@ -176,7 +176,7 @@ const PostMenuActions = ({ post }) => {
           </svg>
           <span>Feature post</span>
           {featureMutation.isPending && (
-            <span className="text-xs">(in progress)</span>
+            <span className="text-xs">in progress</span>
           )}
         </div>
       )}
@@ -197,7 +197,7 @@ const PostMenuActions = ({ post }) => {
           </svg>
           <span>Delete this Post</span>
           {deleteMutation.isPending && (
-            <span className="text-xs">(in progress)</span>
+            <span className="text-xs">in progress</span>
           )}
         </div>
       )}
